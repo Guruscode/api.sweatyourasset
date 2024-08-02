@@ -17,7 +17,7 @@ class UserController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+//        $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
     /**
      * Get a JWT via given credentials.
@@ -108,7 +108,7 @@ class UserController extends Controller
         ], 422);
     }
 
-    
+
 
     // Update the user's profile with the validated data
     $user->update($validator->validated());
@@ -116,7 +116,7 @@ class UserController extends Controller
    if ($user->id !== auth()->id()) {
     return response()->json(['error' => 'Unauthorized'], 403);
 }
-    
+
     return response()->json([
         'status' => true,
         'message' => 'User profile updated successfully',
@@ -147,17 +147,17 @@ class UserController extends Controller
             'current_password' => 'required|string',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'fail',
                 'errors' => $validator->errors()
             ], 422);
         }
-    
+
         // Retrieve the authenticated user
         $user = Auth::user();
-    
+
         // Check if the current password matches
         if (!Hash::check($request->current_password, $user->password)) {
             return response()->json([
@@ -165,12 +165,12 @@ class UserController extends Controller
                 'error' => 'Current password is incorrect'
             ], 401);
         }
-    
+
         // Update the user's password
         $user->update([
             ['password' => bcrypt($request->password)]
         ]);
-    
+
         return response()->json([
             'status' => 'success',
             'message' => 'Password changed successfully',

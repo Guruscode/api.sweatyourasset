@@ -20,9 +20,7 @@ return new class extends Migration
             $table->string('language');
             $table->integer('number_of_lessons');
             $table->integer('hours');
-            $table->text('what_you_will_learn');
-            $table->string('video_url')->nullable();
-            $table->string('file_url')->nullable();
+            $table->json('what_you_will_learn');
             $table->timestamps();
             $table->softDeletes();
         });

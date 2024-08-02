@@ -32,7 +32,7 @@ Route::group([
     Route::post('login', [UserController::class, 'login']);
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('refresh', [UserController::class, 'refresh']);
-    Route::get('user-profile', [UserController::class, 'profile']);    
+    Route::get('user-profile', [UserController::class, 'profile']);
     Route::put('editProfile/{id}', [UserController::class, 'editProfile']);
     Route::post('change-password', [UserController::class, 'changePassword']);
 
@@ -45,5 +45,6 @@ Route::prefix('endpoint/v1')->group(function () {
     Route::get('courses/{course_id}/curriculums', [CurriculumController::class, 'index']);
     Route::get('advertisements', [AdvertisementController::class, 'index']);
     Route::get('articles', [ArticleController::class, 'index']);
+    Route::get('course_details/{id}', [CourseController::class, 'show']);
 
 });

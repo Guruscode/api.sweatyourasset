@@ -9,12 +9,12 @@ class CourseController extends Controller
 {
     public function index()
     {
-        return response()->json(Course::all(), 200);
+        return response()->json(Course::with('curriculums.contents')->get(), 200);
     }
 
     public function show($id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::with('curriculums.contents')->findOrFail($id);
         return response()->json($course, 200);
     }
 

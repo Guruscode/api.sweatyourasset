@@ -11,14 +11,18 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name', 
-        'is_paid', 
-        'price', 
-        'overview', 
-        'language', 
-        'number_of_lessons', 
-        'hours', 
+        'name',
+        'is_paid',
+        'price',
+        'overview',
+        'language',
+        'number_of_lessons',
+        'hours',
         'what_you_will_learn'
+    ];
+
+    protected $casts = [
+        'what_you_will_learn' => 'array',
     ];
 
     public function curriculums()
