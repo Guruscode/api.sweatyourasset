@@ -14,7 +14,8 @@ class Content extends Model
         'curricula_id',
         'title',
         'video_url',
-        'file_url'
+        'file_url',
+        'content',
     ];
 
     public function curriculum(): BelongsTo {

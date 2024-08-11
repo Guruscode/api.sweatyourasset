@@ -12,7 +12,6 @@ class Course extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = [
         'name',
-        'is_paid',
         'price',
         'overview',
         'language',

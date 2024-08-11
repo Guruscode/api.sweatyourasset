@@ -19,7 +19,6 @@ class CourseFactory extends Factory
 
         return [
             'name' => $this->faker->word,
-            'is_paid' => 1,
             'price' => $this->faker->randomFloat(2, 1, 100),
             'overview' => $this->faker->text(100),
             'language' => $this->faker->languageCode,

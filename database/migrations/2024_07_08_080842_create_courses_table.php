@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('is_paid')->default(false);
             $table->decimal('price', 8, 2)->nullable();
             $table->text('overview');
             $table->string('language');
             $table->integer('number_of_lessons');
             $table->integer('hours');
             $table->json('what_you_will_learn');
+            $table->string('type');
             $table->timestamps();
             $table->softDeletes();
         });
