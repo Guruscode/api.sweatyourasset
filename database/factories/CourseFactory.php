@@ -24,7 +24,8 @@ class CourseFactory extends Factory
             'language' => $this->faker->languageCode,
             'number_of_lessons' => 6,
             'hours' => 10,
-            'what_you_will_learn' => [$this->faker->text(20), $this->faker->text(20),]
+            'what_you_will_learn' => [$this->faker->text(20), $this->faker->text(20),],
+            'type' => $this->faker->randomElement(['free', 'paid'])
         ];
     }
 }

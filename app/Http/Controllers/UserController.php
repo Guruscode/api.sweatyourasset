@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -194,5 +195,19 @@ class UserController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 120,
             'user' => auth()->user()
         ]);
+    }
+
+    public function getCourses()
+    {
+        try {
+            $courses = Purchase::whereUserId(auth()->id())->get();
+            return response([
+                'courses' => $courses
+            ]);
+        }catch (\Exception $e) {
+            return response([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

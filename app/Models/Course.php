@@ -28,4 +28,9 @@ class Course extends Model
     {
         return $this->hasMany(Curriculum::class);
     }
+
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
+    }
 }

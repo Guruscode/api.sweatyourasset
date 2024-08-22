@@ -20,7 +20,7 @@ class ContentFactory extends Factory
         return [
             'curricula_id' => Curriculum::inRandomOrder()->first()->id,
             'title' => $this->faker->text(30),
-            'video_url' => 'https://www.youtube.com/watch?v=wffwhmPphcs',
+            'content' => $this->faker->text(200),
         ];
     }
 }
