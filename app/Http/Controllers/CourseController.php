@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
     public function index()
     {
-        return response()->json(Course::with('curriculums.contents')->get(), 200);
+        $courses = Course::with('curriculums.contents')->get();
+        $courses = CourseResource::collection($courses);
+        return response([
+            'courses' => $courses,
+        ], 200);
     }
 
     public function show($id)
@@ -42,9 +48,10 @@ class CourseController extends Controller
     {
         try {
             $request->validate([
+                'user_id' => 'required',
                 'course_id' => 'required',
             ]);
-            $check_purchase = Purchase::whereUserId(auth()->id())->whereCourseId($request->course_id)->first();
+            $check_purchase = Purchase::whereUserId($request->user_id)->whereCourseId($request->course_id)->first();
             if(!empty($check_purchase)) {
                 return response([
                     'message' => 'Already purchased'
@@ -52,7 +59,7 @@ class CourseController extends Controller
             }
 
             Purchase::create([
-                'user_id' => auth()->id(),
+                'user_id' => $request->user_id,
                 'course_id' => $request->course_id
             ]);
 

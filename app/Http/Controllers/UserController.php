@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CourseResource;
+use App\Http\Resources\UserCourseResource;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -192,7 +194,6 @@ class UserController extends Controller
             'status' => true,
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 120,
             'user' => auth()->user()
         ]);
     }
@@ -200,7 +201,8 @@ class UserController extends Controller
     public function getCourses()
     {
         try {
-            $courses = Purchase::whereUserId(auth()->id())->get();
+            $courses = Purchase::with('course.curriculums.contents')->whereUserId(auth()->id())->get();
+            $courses = UserCourseResource::collection($courses);
             return response([
                 'courses' => $courses
             ]);

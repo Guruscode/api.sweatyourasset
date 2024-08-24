@@ -35,6 +35,8 @@ Route::group([
     Route::get('user-profile', [UserController::class, 'profile']);
     Route::put('editProfile/{id}', [UserController::class, 'editProfile']);
     Route::post('change-password', [UserController::class, 'changePassword']);
+    Route::post('purchase', [CourseController::class, 'purchase']);
+    Route::get('/user/courses', [UserController::class, 'getCourses']);
 
 });
 

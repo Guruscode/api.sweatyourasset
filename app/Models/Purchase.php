@@ -10,10 +10,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'course_id',
-    ];
+    protected $guarded = [];
 
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
