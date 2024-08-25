@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CourseResource;
+use App\Models\Content;
 use App\Models\Course;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
@@ -17,6 +18,26 @@ class CourseController extends Controller
         return response([
             'courses' => $courses,
         ], 200);
+    }
+
+    public function getContent($curriculum_id, $course_id)
+    {
+        try {
+            $check = Purchase::whereCourseId($course_id)->whereUserId(auth()->id())->first();
+            if(empty($check)) {
+                return response([
+                    'message' => 'Unauthorized'
+                ], 500);
+            }
+            $contents = Content::where('curricula_id', $curriculum_id)->get();
+            return response([
+                'contents' => $contents
+            ], 200);
+        }catch(\Exception $e) {
+            return response([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function show($id)

@@ -37,6 +37,8 @@ Route::group([
     Route::post('change-password', [UserController::class, 'changePassword']);
     Route::post('purchase', [CourseController::class, 'purchase']);
     Route::get('/user/courses', [UserController::class, 'getCourses']);
+    Route::get('/contents/{curriculum_id}/{course_id}', [CourseController::class, 'getContent']);
+    
 
 });
 
